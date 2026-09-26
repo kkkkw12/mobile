@@ -9,6 +9,24 @@
 
 打开 Pages 地址就是最新的版本，无需手动下载任何文件。
 
+## 首次部署
+
+1. 在 GitHub 新建一个仓库，选 **Public**（Actions 对公开仓库免费且不限时长）
+2. 把本目录推上去：
+
+   ```bash
+   git remote add origin https://github.com/<你的用户名>/<仓库名>.git
+   git branch -M main
+   git push -u origin main
+   ```
+
+3. 打开仓库的 **Actions** 页，点「构建并发布手机版」→ **Run workflow** 先手动跑一次
+4. 跑完后到 **Settings → Pages** 确认 Source 是「**GitHub Actions**」（通常会自动设好）
+5. 访问 `https://<你的用户名>.github.io/<仓库名>/` —— 这就是手机版地址
+
+之后每天北京时间凌晨 4 点会自动重建并发布。构建产物也会作为 Actions 附件保留，
+需要离线文件时可以在对应的运行记录里下载。
+
 ## 工作原理
 
 手机浏览器里没有 Python，跑不了上游那套翻译规则。所以这里把「跑规则」放在 GitHub Actions 上：

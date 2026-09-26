@@ -11,20 +11,24 @@
 
 ## 首次部署
 
+> **必须先做这一步**：仓库 → **Settings → Pages** → 把 **Source** 改成 **「GitHub Actions」**。
+> 不先开启的话，构建能成功，但最后发布那一步会报
+> `HttpError: Resource not accessible by integration`——因为仓库自带的 GITHUB_TOKEN
+> 没有创建 Pages 站点的权限，工作流无法替你开启它。
+
 1. 在 GitHub 新建一个仓库，选 **Public**（Actions 对公开仓库免费且不限时长）
-2. 把本目录推上去：
+2. **Settings → Pages → Source 选「GitHub Actions」**
+3. 把本目录推上去：
 
    ```bash
    git remote add origin https://github.com/<你的用户名>/<仓库名>.git
-   git branch -M main
-   git push -u origin main
+   git push -u origin <当前分支>
    ```
 
-3. 打开仓库的 **Actions** 页，点「构建并发布手机版」→ **Run workflow** 先手动跑一次
-4. 跑完后到 **Settings → Pages** 确认 Source 是「**GitHub Actions**」（通常会自动设好）
+4. 推送会自动触发构建；也可以到 **Actions** 页手动点 **Run workflow**
 5. 访问 `https://<你的用户名>.github.io/<仓库名>/` —— 这就是手机版地址
 
-之后每天北京时间凌晨 4 点会自动重建并发布。构建产物也会作为 Actions 附件保留，
+之后每天北京时间凌晨 4 点自动重建，任何推送也会立即重建。构建产物同时作为 Actions 附件保留，
 需要离线文件时可以在对应的运行记录里下载。
 
 ## 工作原理
